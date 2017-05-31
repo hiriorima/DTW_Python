@@ -1,6 +1,7 @@
 import numpy as np
 import csv
 import glob
+import time
 
 def dtw(vec1, vec2):
     d = np.zeros([len(vec1)+1, len(vec2)+1])
@@ -13,6 +14,8 @@ def dtw(vec1, vec2):
     return d[i][j]
 
 def motionRecognition(input):
+   
+    start = time.time()
 
     distances = []
     files = glob.glob('./data/*.csv')
@@ -34,6 +37,9 @@ def motionRecognition(input):
     print("------------------------")
     print(files[min(enumerate(distances), key=lambda x: x[1])[0]])
     print(distances[min(enumerate(distances), key=lambda x: x[1])[0]])
+
+    elapsed_time = time.time() - start
+    print("elapsed_time:{0}".format(elapsed_time))
     return min(enumerate(distances), key=lambda x: x[1])[0]
 
 def parseCSV(file):
